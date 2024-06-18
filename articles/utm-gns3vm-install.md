@@ -3,7 +3,7 @@ title: "【M1Mac】仮想化ソフトUTMにGNS3-VMをインストールする方
 emoji: "👋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [topics:"network","勉強法","ネットワーク","gns3","ネットワーク構築"]
-published: ture
+published: true
 ---
 ## 1.はじめに
 GNS3でDockerやQemu建てたサーバ（Linux等）をトポロジに配置し、シスコIOSとのネットワークテストをやりたいと思いましたが、それらはGNS3-VMが必要とのことなので、ローカルサーバとは別にリモートサーバを仮想化ホストUTMで建てました。VMwareFusionでの構築はたくさん記事がありますが、UTMの記事はあまり見ないので今回書こうと決心しました！
