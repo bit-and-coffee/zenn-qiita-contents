@@ -2,12 +2,7 @@
 title: "【M1Mac】仮想化ソフトUTMにGNS3-VMをインストールする方法"
 emoji: "👋"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: topics:
-  - "network"
-  - "勉強法"
-  - "ネットワーク"
-  - "gns3"
-  - "ネットワーク構築"
+topics: [topics:"network","勉強法","ネットワーク","gns3","ネットワーク構築"]
 published: false
 ---
 ## 1.はじめに
