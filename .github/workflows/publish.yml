@@ -23,7 +23,8 @@ jobs:
       - uses: actions/checkout@v4 #最新バージョンを使用v3->
         with:
           fetch-depth: 0
-      - uses: ./.github/actions/qiita-publish
+      - name: Run custom action to publish articles to Qiita
+        uses: ./.github/actions/qiita-publish
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
           github-token: ${{ secrets.GH_TOKEN }}
