@@ -20,11 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4 #最新バージョンを使用v3->
         with:
           fetch-depth: 0
       - uses: ./.github/actions/qiita-publish
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
-          # github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GH_TOKEN }}
           rootdir: ./qiita
