@@ -17,7 +17,7 @@ runs:
   steps:
     - uses: actions/setup-node@v3
       with:
-        node-version: '20' # Node.js 20に変更
+        node-version: 'node20' # Node.js 20に変更
     - name: Install qiita-cli
       run: npm install -g @qiita/qiita-cli@v0.3.0
       shell: bash
