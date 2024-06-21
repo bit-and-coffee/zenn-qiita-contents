@@ -1,14 +1,13 @@
 ---
 title: Zenn・Qiita-CLIでのコマンドまとめ
-private: false
 tags:
-  - zenn
-  - qiita
+  - Qiita
   - idea
-updated_at: null
-id: null
+  - Zenn
+private: false
+updated_at: '2024-06-22T01:22:54+09:00'
+id: 809740ce11a1354d6e50
 organization_url_name: null
-slide: false
 ---
 ## １．はじめに
 最近ZennとQiitaのCLIを導入しました！
