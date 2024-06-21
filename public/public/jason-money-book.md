@@ -1,17 +1,15 @@
 ---
 title: 【読書感想文】ジェイソン流お金の稼ぎ方　〜35歳から転職を目指すパパが読んでみて感じたこと〜
-published_at: 2024-03-16 19:13
-private: false
 tags:
-  - エンジニア
-  - 転職
   - 読書
-  - スキルアップ
+  - 転職
   - 自己啓発
-updated_at: null
-id: null
+  - スキルアップ
+  - エンジニア
+private: false
+updated_at: '2024-06-21T21:42:28+09:00'
+id: 96dec6cc107930a1a3c3
 organization_url_name: null
-slide: true
 ---
 
 ## １．はじめに
