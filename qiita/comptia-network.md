@@ -7,7 +7,7 @@ tags:
   - comptia
   - comptianetwork
 private: false
-updated_at: '2024-06-21T14:00:36+09:00'
+updated_at: '2024-06-21T14:04:41+09:00'
 id: 29ede4667f407e94d0e0
 organization_url_name: null
 slide: true
