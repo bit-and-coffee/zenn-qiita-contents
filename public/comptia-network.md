@@ -1,17 +1,17 @@
 ---
 title: 【一発合格】CompTIA Network+(N10-008)の勉強法について✏️
-published_at: 2024-03-08 19:06
-private: false
 tags:
+  - Network
   - 勉強
-  - ネットワーク
   - 資格試験
   - comptia
   - comptianetwork
-updated_at: null
-id: null
+private: false
+updated_at: '2024-06-21T14:00:36+09:00'
+id: 29ede4667f407e94d0e0
 organization_url_name: null
 slide: true
+ignorePublish: false
 ---
 
 ## １．はじめに
@@ -50,14 +50,15 @@ slide: true
 
 - オンラインラボの活用
 CompTIAのホームページからアカウントを作成し、ラボを実行できます。ラボ上（仮想デスクトップ）でIPアドレス、ルータの設定をできますが、自分には特に必要性を感じませんでしたので、途中でやめました。（GNS３という神ツールを使用していましたので、操作についてはある程度の知識がありました。）
-@[card](https://zenn.dev/articles/3446d65dfbc15d/edit)
+
+https://zenn.dev/articles/3446d65dfbc15d/edit
 
 - web模擬試験の活用
 **やはり一番ためになったのがこれですね！**
 私はUdemyでweb模擬試験を購入しました。３回分の模擬試験を実施でき、内容についても本番にかなり近い内容・言い回しでした。現在は３０００円で購入できるようです。
 
 
-@[card](https://www.udemy.com/share/10a3aS3@ospGF8C62kBo_QdfXxGZlo06o7BQ1HUffik93J6rlDXwyTLbLAIXbVPri5BLQ6JLmg==/)
+https://www.udemy.com/share/10a3aS3@ospGF8C62kBo_QdfXxGZlo06o7BQ1HUffik93J6rlDXwyTLbLAIXbVPri5BLQ6JLmg==/
 
 こちらの３回分の　模擬試験を２周しました。その中で理解が足りない問題は、参考書を読み返したり、ネットで調べたりして理解を深めました。勉強する中で自分なりに意識していたことが、
 
