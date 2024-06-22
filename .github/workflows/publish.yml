@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4 #最新バージョンを使用v3->
+      - uses: actions/checkout@v3 #最新バージョンを使用v3->
         with:
           fetch-depth: 0
       - name: Run custom action to publish articles to Qiita
