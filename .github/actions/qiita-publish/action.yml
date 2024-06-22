@@ -22,7 +22,7 @@ runs:
       run: npm install -g @qiita/qiita-cli@v0.3.0
       shell: bash
     - name: Publish articles
-      run: qiita publish --all
+      run: qiita publish --all 
       env:
         QIITA_TOKEN: ${{ inputs.qiita-token }}
         QIITA_CLI_ITEMS_ROOT: ${{ inputs.rootdir }}
@@ -30,7 +30,7 @@ runs:
     - name: Commit
       run: |
         if [[ -n "${{ inputs.rootdir }}" ]]; then
-          git add ${{ inputs.rootdir }}/*
+          git add ${{ inputs.rootdir }}/public/*
         else
           git add public/*
         fi
