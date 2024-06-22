@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'public/**'
+      - 'qiita/**'
   workflow_dispatch:
 
 permissions:
@@ -28,4 +28,4 @@ jobs:
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
           github-token: ${{ secrets.GH_TOKEN }}
-          rootdir: ./public
+          rootdir: ./qiita
