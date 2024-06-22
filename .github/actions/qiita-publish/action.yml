@@ -22,7 +22,7 @@ runs:
       run: npm install -g @qiita/qiita-cli@v0.3.0
       shell: bash
     - name: Publish articles
-      run: qiita publish --all 
+      run: qiita publish --all --root "${{ inputs.rootdir }}" #--root after add
       env:
         QIITA_TOKEN: ${{ inputs.qiita-token }}
         QIITA_CLI_ITEMS_ROOT: ${{ inputs.rootdir }}
