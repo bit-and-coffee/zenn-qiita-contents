@@ -17,12 +17,12 @@ runs:
   steps:
     - uses: actions/setup-node@v3
       with:
-        node-version: '20' # Node.js 20に変更
+        node-version: '20'
     - name: Install qiita-cli
       run: npm install -g @qiita/qiita-cli@v0.3.0
       shell: bash
     - name: Publish articles
-      run: qiita publish --all 
+      run: qiita publish --all
       env:
         QIITA_TOKEN: ${{ inputs.qiita-token }}
         QIITA_CLI_ITEMS_ROOT: ${{ inputs.rootdir }}

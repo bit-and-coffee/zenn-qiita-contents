@@ -1,3 +1,4 @@
+
 name: Publish articles
 
 on:
@@ -5,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'public/**'
+      - 'qiita/**'
   workflow_dispatch:
 
 permissions:
@@ -20,12 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v3 #最新バージョンを使用v3->
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Run custom action to publish articles to Qiita
-        uses: ./.github/actions/qiita-publish
+      - uses: ./.github/actions/qiita-publish
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
           github-token: ${{ secrets.GH_TOKEN }}
-          rootdir: ./public
+          rootdir: ./qiita
