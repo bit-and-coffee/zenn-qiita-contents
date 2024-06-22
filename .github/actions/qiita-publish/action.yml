@@ -30,7 +30,7 @@ runs:
     - name: Commit
       run: |
         if [[ -n "${{ inputs.rootdir }}" ]]; then
-          git add ${{ inputs.rootdir }}/public/*
+          git add ${{ inputs.rootdir }}/*
         else
           git add public/*
         fi
