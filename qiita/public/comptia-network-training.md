@@ -6,7 +6,7 @@ tags:
   - OpenAI
   - ChatGPT
 private: false
-updated_at: '2024-06-26T07:54:24+09:00'
+updated_at: '2024-06-26T07:56:03+09:00'
 id: 535408cacc28046b7a9a
 organization_url_name: null
 ---
