@@ -3,7 +3,7 @@ title: "【神速】chatGPTでWeb模擬試験アプリを作った話"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["idea","network","OpenAI","chatGPT"]
-published: false
+published: true
 ---
 ## １.はじめに
 前回CompTIA Network+の勉強法について記事を投稿しました。
@@ -35,7 +35,7 @@ https://ai-workstyle.com/gpt-apikey/
 ４ 終了ボタンを押すと採点結果表示（表形式で）
 ５ CSV出力ボタンで採点結果をダウンロード
 ```
-```javascript
+```javascript:Javascript
 const questions = [
     {
         question: "問題1: 日本の首都はどこですか？",
