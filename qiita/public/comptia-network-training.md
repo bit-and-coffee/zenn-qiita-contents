@@ -1,15 +1,14 @@
 ---
 title: 【神速】chatGPTでWeb模擬試験アプリを作った話
-private: false
 tags:
+  - Network
   - idea
-  - network
   - OpenAI
-  - chatGPT
-updated_at: null
-id: null
+  - ChatGPT
+private: false
+updated_at: '2024-06-26T07:31:29+09:00'
+id: 535408cacc28046b7a9a
 organization_url_name: null
-slide: false
 ---
 ## １.はじめに
 前回CompTIA Network+の勉強法について記事を投稿しました。
