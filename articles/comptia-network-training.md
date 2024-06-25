@@ -1,5 +1,5 @@
 ---
-title: "chatGPTでWeb模擬試験アプリを作った話"
+title: "【神速】chatGPTでWeb模擬試験アプリを作った話"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["idea","network","OpenAI","chatGPT"]
