@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ```
 いかにプロンプトを具体的に書くかが重要かと思います。
 （こちらが曖昧だと、平気でウソつきます！w）
-:::note
+:::note warn
 chatGPTのプロンプトは一発で成功することは稀です。微調整が必要です！
 :::
 
