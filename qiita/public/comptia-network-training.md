@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 （こちらが曖昧だと、平気でウソつきます！w）
 
 :::note warn
-警告
+注意！！
 chatGPTのプロンプトは一発で成功することは稀です。微調整が必要です！
 :::
 
