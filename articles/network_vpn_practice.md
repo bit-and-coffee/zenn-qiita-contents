@@ -5,3 +5,4 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ['network','gns3']
 published: false
 ---
+## 1.はじめに
