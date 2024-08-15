@@ -1,9 +1,15 @@
 ---
-title: "【GNS3】CiscoとJniperを使ったVPN環境"
-emoji: "🐥"
-type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ['network','gns3',cisco,juniper,chatgpt]
-published: true
+title: 【GNS3】CiscoとJniperを使ったVPN環境
+private: false
+tags:
+  - network
+  - gns3
+  - cisco
+  - juniper
+  - chatgpt
+updated_at: null
+id: null
+organization_url_name: null
 ---
 ## はじめに
 本記事では、OSPFで構成されたネットワークにRIPで加入し、エンドツーエンドをL2TPで接続するシナリオを検証します。加入ルーターの片側をJuniperにすることで、異なるメーカー間でもプロトコルが合致すれば、正しく通信が可能であることを確認します。
@@ -13,7 +19,7 @@ published: true
 ## トポロジ図
 以下のトポロジ図に従ってネットワークを構築します。
 
-![](/images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
+![](https://raw.githubusercontent.com/bit-and-coffee/zenn-qiita-contents/main/images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
 
 ## 検証手順
 
@@ -243,9 +249,9 @@ published: true
 
     下図のとおりにエンドツーエンドでpingが通っていることが確認できました。また。wiresharkにて上位のルーターでL2TPv3のプロトコルが通過していることも確認できました。
 
-    ![](/images/network_vpn_practice/2.png)
+    ![](https://raw.githubusercontent.com/bit-and-coffee/zenn-qiita-contents/main/images/network_vpn_practice/2.png)
 
-    ![](/images/network_vpn_practice/3.png)
+    ![](https://raw.githubusercontent.com/bit-and-coffee/zenn-qiita-contents/main/images/network_vpn_practice/3.png)
 
 ## 検証結果
 この設定により、OSPFとRIP間でのネットワーク再配布が正しく行われ、L2TPトンネルを介してエンドツーエンドで通信が確立できることを確認しました。WAN側ネットワークアドレスの重複があっても、問題なくVPN接続ができることが証明されました。
