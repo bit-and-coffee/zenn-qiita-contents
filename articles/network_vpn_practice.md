@@ -13,7 +13,7 @@ published: false
 ## トポロジ図
 以下のトポロジ図に従ってネットワークを構築します。
 
-![](/images/network-vpn-practice/1.png) <!-- ここにトポロジ図を挿入 -->
+![](https://github.com/bit-and-coffee/zenn-qiita-contents/blob/main/images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
 
 ## 検証手順
 
@@ -22,106 +22,106 @@ published: false
     - OSPFルーティングプロトコルを設定し、各ルーター間の通信を確立します。
 
     ```Router1
-interface FastEthernet0/0
- ip address 172.16.1.1 255.255.255.0
- duplex auto
- speed auto
-!
-interface Serial0/0
- no ip address
- shutdown
- clock rate 2000000
-!
-interface FastEthernet0/1
- ip address 192.168.100.254 255.255.255.0
- duplex auto
- speed auto
-!
-router ospf 1
- log-adjacency-changes
- redistribute rip subnets route-map RIP_TO_OSPF
- network 172.16.1.0 0.0.0.255 area 0
-!
-router rip
- version 2
- redistribute ospf 1 metric 1
- network 192.168.100.0
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-!
-!
-ip prefix-list KANYU-NW-1 seq 10 permit 192.168.1.0/24
-no cdp log mismatch duplex
-!
-!
-!
-route-map RIP_TO_OSPF permit 10
- match ip address prefix-list KANYU-NW-1
+    interface FastEthernet0/0
+    ip address 172.16.1.1 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    interface Serial0/0
+    no ip address
+    shutdown
+    clock rate 2000000
+    !
+    interface FastEthernet0/1
+    ip address 192.168.100.254 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    router ospf 1
+    log-adjacency-changes
+    redistribute rip subnets route-map RIP_TO_OSPF
+    network 172.16.1.0 0.0.0.255 area 0
+    !
+    router rip
+    version 2
+    redistribute ospf 1 metric 1
+    network 192.168.100.0
+    !
+    ip forward-protocol nd
+    !
+    !
+    no ip http server
+    no ip http secure-server
+    !
+    !
+    ip prefix-list KANYU-NW-1 seq 10 permit 192.168.1.0/24
+    no cdp log mismatch duplex
+    !
+    !
+    !
+    route-map RIP_TO_OSPF permit 10
+    match ip address prefix-list KANYU-NW-1
     ```
 
     ```ESW
-interface FastEthernet1/0
- no switchport
- ip address 172.16.1.254 255.255.255.0
- duplex full
- speed 100
-!
-interface FastEthernet1/1
- no switchport
- ip address 172.16.2.254 255.255.255.0
- duplex full
- speed 100
+    interface FastEthernet1/0
+    no switchport
+    ip address 172.16.1.254 255.255.255.0
+    duplex full
+    speed 100
+    !
+    interface FastEthernet1/1
+    no switchport
+    ip address 172.16.2.254 255.255.255.0
+    duplex full
+    speed 100
 
- router ospf 1
- log-adjacency-changes
- network 172.16.1.0 0.0.0.255 area 0
- network 172.16.2.0 0.0.0.255 area 0
+    router ospf 1
+    log-adjacency-changes
+    network 172.16.1.0 0.0.0.255 area 0
+    network 172.16.2.0 0.0.0.255 area 0
     ```
 
     ```Router2
-interface FastEthernet0/0
- ip address 172.16.2.1 255.255.255.0
- duplex auto
- speed auto
-!
-interface Serial0/0
- no ip address
- shutdown
- clock rate 2000000
-!
-interface FastEthernet0/1
- ip address 192.168.100.254 255.255.255.0
- duplex auto
- speed auto
-!
-router ospf 1
- log-adjacency-changes
- redistribute rip subnets route-map RIP_TO_OSPF
- network 172.16.2.0 0.0.0.255 area 0
-!
-router rip
- version 2
- redistribute ospf 1 metric 1
- network 192.168.100.0
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-!
-!
-ip prefix-list KANYU-NW-2 seq 10 permit 192.168.2.0/24
-no cdp log mismatch duplex
-!
-!
-!
-route-map RIP_TO_OSPF permit 10
- match ip address prefix-list KANYU-NW-2
+    interface FastEthernet0/0
+    ip address 172.16.2.1 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    interface Serial0/0
+    no ip address
+    shutdown
+    clock rate 2000000
+    !
+    interface FastEthernet0/1
+    ip address 192.168.100.254 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    router ospf 1
+    log-adjacency-changes
+    redistribute rip subnets route-map RIP_TO_OSPF
+    network 172.16.2.0 0.0.0.255 area 0
+    !
+    router rip
+    version 2
+    redistribute ospf 1 metric 1
+    network 192.168.100.0
+    !
+    ip forward-protocol nd
+    !
+    !
+    no ip http server
+    no ip http secure-server
+    !
+    !
+    ip prefix-list KANYU-NW-2 seq 10 permit 192.168.2.0/24
+    no cdp log mismatch duplex
+    !
+    !
+    !
+    route-map RIP_TO_OSPF permit 10
+    match ip address prefix-list KANYU-NW-2
     ```
 
 2. **RIPルーターの追加**
