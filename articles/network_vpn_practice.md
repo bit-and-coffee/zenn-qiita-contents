@@ -13,7 +13,7 @@ published: false
 ## トポロジ図
 以下のトポロジ図に従ってネットワークを構築します。
 
-![](../images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
+![](/images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
 
 ## 検証手順
 
@@ -160,34 +160,34 @@ published: false
     network 192.168.100.0
     ```
 
-```bash:Router4
-    pseudowire-class L2TP
- encapsulation l2tpv3
- ip local interface FastEthernet0/0
-!
-!
-!
-!
-!
-interface FastEthernet0/0
- ip address 192.168.2.2 255.255.255.0
- duplex auto
- speed auto
-!
-interface Serial0/0
- no ip address
- shutdown
- clock rate 2000000
-!
-interface FastEthernet0/1
- no ip address
- duplex auto
- speed auto
- xconnect 192.168.1.1 1 pw-class L2TP
-!
-ip forward-protocol nd
-ip route 0.0.0.0 0.0.0.0 192.168.2.1
-```
+    ```bash:Router4
+        pseudowire-class L2TP
+    encapsulation l2tpv3
+    ip local interface FastEthernet0/0
+    !
+    !
+    !
+    !
+    !
+    interface FastEthernet0/0
+    ip address 192.168.2.2 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    interface Serial0/0
+    no ip address
+    shutdown
+    clock rate 2000000
+    !
+    interface FastEthernet0/1
+    no ip address
+    duplex auto
+    speed auto
+    xconnect 192.168.1.1 1 pw-class L2TP
+    !
+    ip forward-protocol nd
+    ip route 0.0.0.0 0.0.0.0 192.168.2.1
+    ```
 3. **ルーティングテーブルの確認**
     - RIPで公布したネットワークがOSPFで再配布されていることを確認する。
     - OSPFで対向のLAN側ネットワークを学習していることを確認する。
@@ -243,9 +243,9 @@ ip route 0.0.0.0 0.0.0.0 192.168.2.1
 
     下図のとおりにエンドツーエンドでpingが通っていることが確認できました。また。wiresharkにて上位のルーターでL2TPv3のプロトコルが通過していることも確認できました。
 
-    ![](../images/network_vpn_practice/2.png)
+    ![](/images/network_vpn_practice/2.png)
 
-    ![](../images/network_vpn_practice/3.png)
+    ![](/images/network_vpn_practice/3.png)
 
 ## 検証結果
 この設定により、OSPFとRIP間でのネットワーク再配布が正しく行われ、L2TPトンネルを介してエンドツーエンドで通信が確立できることを確認しました。WAN側ネットワークアドレスの重複があっても、問題なくVPN接続ができることが証明されました。
