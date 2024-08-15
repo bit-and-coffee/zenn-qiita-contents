@@ -13,15 +13,15 @@ published: false
 ## トポロジ図
 以下のトポロジ図に従ってネットワークを構築します。
 
-![](https://github.com/bit-and-coffee/zenn-qiita-contents/blob/main/images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
+![](../images/network_vpn_practice/1.png) <!-- ここにトポロジ図を挿入 -->
 
 ## 検証手順
 
 1. **OSPFネットワークの設定**
-    - Ciscoルーター R1, R2, R3 を用いてOSPFネットワークを構築します。
+    - Ciscoルーター Router1, ESW, Router2 を用いてOSPFネットワークを構築します。
     - OSPFルーティングプロトコルを設定し、各ルーター間の通信を確立します。
 
-    ```Router1
+    ```bash:Router1
     interface FastEthernet0/0
     ip address 172.16.1.1 255.255.255.0
     duplex auto
@@ -63,7 +63,7 @@ published: false
     match ip address prefix-list KANYU-NW-1
     ```
 
-    ```ESW
+    ```bash:ESW
     interface FastEthernet1/0
     no switchport
     ip address 172.16.1.254 255.255.255.0
@@ -82,7 +82,7 @@ published: false
     network 172.16.2.0 0.0.0.255 area 0
     ```
 
-    ```Router2
+    ```bash:Router2
     interface FastEthernet0/0
     ip address 172.16.2.1 255.255.255.0
     duplex auto
@@ -124,64 +124,128 @@ published: false
     match ip address prefix-list KANYU-NW-2
     ```
 
-2. **RIPルーターの追加**
-    - R3のLAN側ネットワークにR4を追加し、RIPでOSPFネットワークに接続します。
-    - Juniperルーターを使用して、LAN側のネットワークをRIPにより広報します。
+2. **RIP・VPNルーターの追加**
+    - Router3,4でOSPFネットワークにRIPで加入します。
+    - WAN,LAN側ネットワークをRIPで公布します。
+    - Router3は、加入・VPNを併せて設定
+    - Router4はVPNのみ（JuniperルーターがOSPFネットワークとRIPで接続）
+    - Juniperルーターを使用して、Ciscoルータとの接続性を検証（プロトコルさえあっていれば正しく通信されることを確認する）
 
-    ```bash
-    # R4 (Cisco) RIP Configuration
+    ```bash:Router3
+    interface Loopback0
+    ip address 192.168.1.1 255.255.255.0
+    !
+    interface Tunnel0
+    no ip address
+    !
+    interface FastEthernet0/0
+    ip address 192.168.100.100 255.255.255.0
+    duplex auto
+    speed auto
+    !
+    interface Serial0/0
+    no ip address
+    shutdown
+    clock rate 2000000
+    !
+    interface FastEthernet0/1
+    no ip address
+    duplex auto
+    speed auto
+    xconnect 192.168.2.2 1 pw-class L2TP
+    !
     router rip
-     version 2
-     network 192.168.4.0
-     network 10.0.1.0
+    version 2
+    network 192.168.1.0
+    network 192.168.100.0
     ```
 
-    ```bash
-    # Juniper (R5) RIP Configuration
-    set protocols rip group RIP-Group neighbor 10.0.1.2
-    set protocols rip group RIP-Group export to-ospf
+```bash:Router4
+    pseudowire-class L2TP
+ encapsulation l2tpv3
+ ip local interface FastEthernet0/0
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.168.2.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface FastEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ xconnect 192.168.1.1 1 pw-class L2TP
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 192.168.2.1
+```
+3. **ルーティングテーブルの確認**
+    - RIPで公布したネットワークがOSPFで再配布されていることを確認する。
+    - OSPFで対向のLAN側ネットワークを学習していることを確認する。
+
+    ```bash:Router1 Router2
+        #Router1
+            172.16.0.0/24 is subnetted, 2 subnets
+        C       172.16.1.0 is directly connected, FastEthernet0/0
+        O       172.16.2.0 [110/11] via 172.16.1.254, 00:14:48, FastEthernet0/0
+        R    192.168.1.0/24 [120/1] via 192.168.100.100, 00:00:16, FastEthernet0/1
+        O E2 192.168.2.0/24 [110/20] via 172.16.1.254, 00:14:48, FastEthernet0/0
+        C    192.168.100.0/24 is directly connected, FastEthernet0/1
+        #router2
+                172.16.0.0/24 is subnetted, 2 subnets
+        O       172.16.1.0 [110/11] via 172.16.2.254, 00:20:58, FastEthernet0/0
+        C       172.16.2.0 is directly connected, FastEthernet0/0
+        O E2 192.168.1.0/24 [110/20] via 172.16.2.254, 00:20:58, FastEthernet0/0
+        R    192.168.2.0/24 [120/1] via 192.168.100.100, 00:00:13, FastEthernet0/1
+        C    192.168.100.0/24 is directly connected, FastEthernet0/1
     ```
 
-3. **OSPFへのLAN側ネットワークの再配布**
-    - R3からOSPFにLAN側ネットワーク (例: 192.168.4.0/24) のみを再配布します。
-
-    ```bash
-    # R3 Configuration
-    router ospf 1
-     redistribute rip subnets
-     distribute-list 1 in
+    ```bash:Router3 Juniper-Olive Router4
+        #Router3
+        R    172.16.0.0/16 [120/1] via 192.168.100.254, 00:00:15, FastEthernet0/0
+        C    192.168.1.0/24 is directly connected, Loopback0
+        R    192.168.2.0/24 [120/1] via 192.168.100.254, 00:00:15, FastEthernet0/0
+        C    192.168.100.0/24 is directly connected, FastEthernet0/0
+        #Juniper-Olive
+        172.16.0.0/16      *[RIP/100] 00:24:08, metric 2, tag 0
+                    > to 192.168.100.254 via em0.0
+        192.168.1.0/24     *[RIP/100] 00:24:00, metric 2, tag 0
+                    > to 192.168.100.254 via em0.0
+        192.168.2.0/24     *[Direct/0] 00:24:13
+                    > via em1.0
+        192.168.2.1/32     *[Local/0] 00:24:13
+                      Local via em1.0
+        192.168.100.0/24   *[Direct/0] 00:24:14
+                    > via em0.0
+        192.168.100.100/32 *[Local/0] 00:24:14
+                      Local via em0.0
+        224.0.0.9/32       *[RIP/100] 00:24:15, metric 1
+                      MultiRecv
+        #Router4（VPN設定のみなので、ルーティングは上記のルーター任せ）
+        C    192.168.2.0/24 is directly connected, FastEthernet0/0
+        S*   0.0.0.0/0 [1/0] via 192.168.2.1
     ```
 
-    - 再配布時にWAN側ネットワークは含めないようにします。
+4. **L2TPでのエンドツーエンドの疎通試験**
+    - JuniperとCiscoルーター間でL2TPトンネルを構築し、エンドツーエンドの通信が確率したことを確認します。
+    - 端末はLinuxベースのDockerイメージ「ipterm」を使用しています。
 
-    ```bash
-    # Distribute-List Configuration
-    access-list 1 permit 192.168.4.0 0.0.0.255
-    access-list 1 deny any
-    ```
+    > ipterm は、GNS3（Graphical Network Simulator-3）環境で利用できる端末エミュレータです。軽量のLinuxベースの仮想アプライアンスとして設計されており、GNS3上でネットワークデバイスと対話するためのターミナルを提供します。具体的には、ネットワークトポロジー内で ipterm を使用して、他のネットワークデバイスと通信したり、基本的なネットワーク診断ツール（例えば ping や traceroute）を実行することが可能です。仮想環境でのネットワークシミュレーションやテストに便利なツールです。
 
-4. **L2TPでのエンドツーエンドVPN構成**
-    - JuniperとCiscoルーター間でL2TPトンネルを構築し、エンドツーエンドの通信を確立します。
+    下図のとおりにエンドツーエンドでpingが通っていることが確認できました。また。wiresharkにて上位のルーターでL2TPv3のプロトコルが通過していることも確認できました。
 
-    ```bash
-    # Juniper (R5) L2TP Configuration
-    set security ike proposal ike-proposal authentication-method pre-shared-keys
-    set security ike policy ike-policy mode main
-    set security ike gateway ike-gateway ike-policy ike-proposal
+    ![](../images/network_vpn_practice/2.png)
 
-    set security ipsec vpn ipsec-vpn ike gateway ike-gateway
-    set security ipsec vpn ipsec-vpn ike proxy-identity local 192.168.4.0/24
-    ```
-
-    ```bash
-    # Cisco (R4) L2TP Configuration
-    vpdn enable
-    vpdn-group L2TP-Group
-     request-dialin
-     protocol l2tp
-     domain default
-     initiate-to ip 10.0.1.1
-    ```
+    ![](../images/network_vpn_practice/3.png)
 
 ## 検証結果
 この設定により、OSPFとRIP間でのネットワーク再配布が正しく行われ、L2TPトンネルを介してエンドツーエンドで通信が確立できることを確認しました。WAN側ネットワークアドレスの重複があっても、問題なくVPN接続ができることが証明されました。
