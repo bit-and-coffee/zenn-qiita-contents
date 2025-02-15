@@ -28,7 +28,7 @@ net-tools
 ```
 
 
-```dockerfile
+```Dockerfile:Dockerfile
 FROM ubuntu:latest
 
 
@@ -60,7 +60,7 @@ CMD ["bash"]
 ## 4. Dcokerfileの準備
 DcokerfileからGNS3で起動するイメージを作成する。
 ### ロードバランサー
-```dockerfile
+```Dockerfile:Dockerfile
 # 公式の nginx イメージをベースにする
 FROM mynginx:nettools
 
@@ -70,7 +70,7 @@ COPY default.conf /etc/nginx/conf.d/default.conf
 上記のDockerfile内にあるdefault.confは、ロードバランサーの動作を記述したファイルです。
 
 
-```dockerfile
+```:default.conf
 # /etc/nginx/conf.d/default.conf
 
 # upstream でバックエンドサーバーを定義
@@ -100,7 +100,7 @@ server {
 DNSサーバでは、CoreDNSというGO言語ベースの軽量DNSサーバを使用します。
 Dockerfileの中でインストールしていきます。
 
-```dockerfile
+```Dockerfile:Dockerfile
 FROM ubuntu:latest
 
 # HTTPSダウンロード用に ca-certificates をインストール
@@ -123,7 +123,7 @@ CMD ["/usr/bin/coredns", "-conf", "/Corefile"]
 ```
 Dockerfileの中にあるCorefileはDNS機能を記述しているファイルになります。
 
-```Corefile
+```:Corefile
 .:53 {
     forward . 8.8.8.8
     log
@@ -145,7 +145,7 @@ example.local:53 {
 ### Webサーバ
 ロードバランサーのバックエンドで動作するWebサーバになります。
 ここはPythonの標準イメージを使用しています。
-```Dockerfile
+```Dockerfile:Dockerfile
 # ベースイメージとして公式の Python イメージを使用
 FROM python:3.9-slim
 
