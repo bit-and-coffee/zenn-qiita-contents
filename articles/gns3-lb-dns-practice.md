@@ -18,7 +18,7 @@ published: false
 ロードバランサついでにDNSサーバも配置し、名前解決できる環境も構築！
 
 ## 3. 使用するDockerイメージ
-まずはじめに、各サーバの元となるイメージを作成します。
+まずはじめに、各サーバの元となるイメージを作成することをおすすめします！
 ウブンツの公式イメージを使用し、以下の項目をインストールするようにします。
 
 ```bash
@@ -179,3 +179,16 @@ web-server-py_gns3
 ```bash
 docker build -t <任意のイメージ名>:<任意のタグ名> .
 ```
+
+## 5. DockerイメージをGNS3へ配置
+Dockerfileで作成したイメージをGNS3に取り込んでいきます。
+下記のリンクでGNS3での操作の概要は把握できるかと思います。
+https://www.n-study.com/how-to-use-gns3/how-to-add-docker-container-linux-host/
+イメージ選択画面のところは、「New Image」ではなく「Existing Image」をチェックし、先ほどDockerfileで作成したイメージを選択しましょう。
+![](../images/gns3-lb-dns-practice/1.png)
+
+GNS3の設定が完了すると、画像のように一覧の中にDockerイメージが追加されます。
+私は画像のようにイメージを配置しました。
+![](../images/gns3-lb-dns-practice/2.png)
+（一部イメージのシンボルを変更していますので見た目が違います。）
+
