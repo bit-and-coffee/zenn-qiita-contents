@@ -3,7 +3,7 @@ title: "【ネスペ対策】GNS3でロードバランサとDNSの検証環境�
 emoji: "🦁"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["zenn","qiita","idea",”ネスペ"]
-published: false
+published: true
 ---
 ## 1.はじめに
 
