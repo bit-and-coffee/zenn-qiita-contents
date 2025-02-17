@@ -229,4 +229,4 @@ example.localへ通信し、Webサーバの応答（この場合だと、Python�
 
 下の画像は、ClientーCUIからcurlコマンドで３回アクセスした結果です。
 ロードバランサーの機能で、バックエンドの各サーバへ負荷分散されていることがわかります。
-![](/images/gns3-lb-dns-practice/5.png)
+![](/images/gns3-lb-dns-practice/6.png)
