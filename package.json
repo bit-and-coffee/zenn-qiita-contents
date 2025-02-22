@@ -34,6 +34,6 @@
     "zenn-cli": "^0.1.144"
   },
   "devDependencies": {
-    "@qiita/qiita-cli": "^1.4.2"
+    "@qiita/qiita-cli": "^1.6.1"
   }
 }
